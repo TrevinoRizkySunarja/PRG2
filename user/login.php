@@ -76,6 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <button type="submit" name="submit">Login</button>
 </form>
+<a href="register.php">Register</a>
 
 <?php if (!empty($errors)): ?>
     <div style="color: red;">
