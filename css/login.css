@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Fredoka:wght@300..700&display=swap');
+
+body {
+    font-family: "Fredoka", sans-serif;
+    font-style: normal;
+    background-color: #212121;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+h1 {
+    color: #8AB9F1;
+    text-align: center;
+    margin-top: 0;
+    padding-top: 100px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+form {
+    background-color: #F0F8FF;
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 400px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #ffffff;
+}
+
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #444;
+    border-radius: 4px;
+    background-color: #1e1e1e;
+    color: #ffffff;
+    font-size: 14px;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #F0F8FF;
+    outline: none;
+    box-shadow: 0 0 5px #F0F8FF;
+}
+
+.a {
+    background-color: #8AB9F1;
+    color: #ffffff;
+    padding: 10px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    text-transform: uppercase;
+    width: 100%;
+    text-align: center;
+}
+
+.a:hover {
+    background-color: #8AB9F1;
+}
+
+.a:active {
+    background-color: #61a0ec;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #8AB9F1;
+    border: none;
+    border-radius: 4px;
+    color: #ffffff;
+    font-size: 16px;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+button:hover {
+    background-color: #61a0ec;
+}
+
+button:active {
+    background-color: #61a0ec;
+}
+
+form a {
+    color: #8AB9F1;
+    text-decoration: none;
+    font-size: 12px;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+form a:hover {
+    text-decoration: underline;
+}
