@@ -2,56 +2,60 @@
 session_start();
 
 if (!isset($_SESSION['user'])) {
-    header('Location: ../user/login.php');
+    header('Location: user/login.php');
     exit();
 }
 
-require_once "../includes/database.php";
+require_once __DIR__ . "/includes/database.php";
 
 $errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $name        = trim($_POST['name'] ?? '');
+    $type        = trim($_POST['type'] ?? '');
+    $rarity      = trim($_POST['rarity'] ?? '');
+    $hp          = (int)($_POST['hp'] ?? 0);
+    $description = trim($_POST['description'] ?? '');
+    $image_url   = trim($_POST['image_url'] ?? '');
 
-    $name = trim($_POST['name']);
-    $type = trim($_POST['type']);
-    $rarity = trim($_POST['rarity']);
-    $hp = intval($_POST['hp']);
-    $description = trim($_POST['description']);
-    $image_url = trim($_POST['image_url']);
-
-    if (empty($name)||  empty($type)||
- empty($rarity)) {
+    if ($name === '' || $type === '' || $rarity === '') {
         $errors[] = "Naam, type en rarity zijn verplicht.";
     } else {
-
         $query = "INSERT INTO pokemoncards (user_id, name, type, rarity, hp, description, image_url)
                   VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = mysqli_prepare($db, $query);
-        mysqli_stmt_bind_param(
-            $stmt,
-            "isssiss",
-            $_SESSION['user']['id'],
-            $name,
-            $type,
-            $rarity,
-            $hp,
-            $description,
-            $image_url
-        );
-
-        if (mysqli_stmt_execute($stmt)) {
-            header("Location: ../read/index.php");
-            exit;
+        if (!$stmt) {
+            $errors[] = "Prepare fout: " . mysqli_error($db);
         } else {
-            $errors[] = "Database fout: " . mysqli_stmt_error($stmt);
+            $userId = (int)($_SESSION['user']['id'] ?? 0);
+
+            mysqli_stmt_bind_param(
+                $stmt,
+                "isssiss",
+                $userId,
+                $name,
+                $type,
+                $rarity,
+                $hp,
+                $description,
+                $image_url
+            );
+
+            if (mysqli_stmt_execute($stmt)) {
+                header("Location: read/index.php");
+                exit();
+            } else {
+                $errors[] = "Database fout: " . mysqli_stmt_error($stmt);
+            }
         }
     }
 }
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="nl">
 <head>
+    <meta charset="UTF-8">
     <title>Nieuwe Pokémon Card</title>
 </head>
 <body>
@@ -69,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <input type="text" name="rarity" required>
 
     <label>HP:</label>
-    <input type="number" name="hp">
+    <input type="number" name="hp" value="0">
 
     <label>Beschrijving:</label>
     <textarea name="description"></textarea>
@@ -83,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php if (!empty($errors)): ?>
     <div style="color:red;">
         <?php foreach ($errors as $e): ?>
-            <p><?= htmlspecialchars($e) ?></p>
+            <p><?php echo htmlspecialchars($e); ?></p>
         <?php endforeach; ?>
     </div>
 <?php endif; ?>

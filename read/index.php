@@ -1,4 +1,5 @@
 <?php
+// read/index.php
 session_start();
 
 if (!isset($_SESSION['user'])) {
@@ -6,7 +7,7 @@ if (!isset($_SESSION['user'])) {
     exit();
 }
 
-require_once "../includes/database.php";
+require_once __DIR__ . "/../includes/database.php";
 
 // Haal alle pokemon kaarten op
 $query = "SELECT * FROM pokemoncards ORDER BY name ASC";
@@ -21,6 +22,7 @@ if (!$result) {
 <head>
     <meta charset="UTF-8">
     <title>Pokemoncards Overzicht</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
 <body>
 
@@ -62,7 +64,6 @@ if (!$result) {
             </td>
         </tr>
     <?php endwhile; ?>
-
 </table>
 
 <br>
